@@ -1,0 +1,12 @@
+docker pull redis
+
+docker run --name redis-server -d -p 6379:6379 redis
+
+docker exec -it redis-server redis-cli
+
+
+---------------
+
+persistence
+
+docker run --name redis-server -d -p 6379:6379 -v redis_data:/data redis --appendonly yes
