@@ -10,3 +10,20 @@ docker exec -it redis-server redis-cli
 persistence
 
 docker run --name redis-server -d -p 6379:6379 -v redis_data:/data redis --appendonly yes
+
+
+=======================
+
+
+#docker run -d  --name redis-prod -p 6379:6379  -v /path/to/redis/data:/data  -e REDIS_PASSWORD=admin123  redis:latest --requirepass admin123
+
+#docker exec -it redis-prod redis-cli -a admin123
+
+1)
+--requirepass your_secure_password (Redis Command Argument)
+
+This is the actual Redis configuration that enforces authentication.
+It tells Redis to require a password for connections.
+Without this, Redis will not enforce authentication.
+
+--------------
