@@ -23,6 +23,11 @@ spec:
           env:
             - name: REDIS_SERVICE_IP
               value: "$(REDIS_SERVICE_SERVICE_HOST)"
+            - name: REDIS_POD_IP
+              valueFrom:
+                configMapKeyRef:
+                  name: my-config
+                  key: REDIS_POD_IP
             - name: SPRING_REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
