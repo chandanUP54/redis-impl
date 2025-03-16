@@ -17,4 +17,12 @@ now you are inside pod ----->
 #flushall
 
 #exit
+
+----------------------------
 3)
+kubectl exec -it springboot-app-65c5c5ff64-dz8gt -- sh
+
+wget -qO- http://10.100.231.70:80/users/4
+
+service ip of => spring boot application
+
