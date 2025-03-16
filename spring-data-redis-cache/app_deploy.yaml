@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springboot-app
+  labels:
+    app: springboot-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springboot-app
+  template:
+    metadata:
+      labels:
+        app: springboot-app
+    spec:
+      containers:
+        - name: springboot-app
+          image: chandanforu/webhook-demo:v1.1.2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 9696
+          env:
+            - name: REDIS_SERVICE_IP
+              value: "$(REDIS_SERVICE_SERVICE_HOST)"
+            - name: SPRING_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: redis-password
+          resources:
+            limits:
+              memory: "252Mi"
+              cpu: "500m"
+            requests:
+              memory: "252Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springboot-service
+spec:
+  selector:
+    app: springboot-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9696
+  type: NodePort

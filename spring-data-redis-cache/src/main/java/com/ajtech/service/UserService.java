@@ -18,6 +18,7 @@ public class UserService {
 
     @Cacheable(value = "users", key = "#id")
     public User getUserById(Long id) {
+    	System.out.println("getting from db");
         return userRepository.findById(id).orElse(null);
     }
 

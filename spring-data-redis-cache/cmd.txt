@@ -1,0 +1,20 @@
+1)
+# kubectl exec -it redis-deploy-server-59fb78bfd7-nst9q  -- sh  
+
+now you are inside pod ----->
+# pwd
+/data
+
+#cat  /opt/redis/redis.conf
+
+2) inside pod you can do  (access redis-cli)
+
+#redis-cli
+#AUTH password   (not password is password)
+
+#keys *
+#monitor
+#flushall
+
+#exit
+3)

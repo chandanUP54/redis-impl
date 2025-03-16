@@ -9,6 +9,8 @@ import com.impl.webhook.services.WebhookService;
 
 @RestController
 @RequestMapping("/api/webhook")
+@CrossOrigin(origins = {"http://localhost:3000", "https://webhook-app-test.vercel.app"})
+
 public class WebhookController {
 
  private final WebhookService webhookService;
@@ -27,13 +29,5 @@ public class WebhookController {
      return ResponseEntity.ok(processedEvent);
  }
 
- // Health check endpoint
- @GetMapping("/health")
- public ResponseEntity<String> healthCheck() {
-     return ResponseEntity.ok("Webhook service is healthy");
- }
- 
- 
- 
- 
+
 }

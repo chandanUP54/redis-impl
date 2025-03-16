@@ -11,6 +11,8 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
+//@CrossOrigin("*","https://webhook-app-test.vercel.app")
+@CrossOrigin(origins = {"http://localhost:3000", "https://webhook-app-test.vercel.app"})
 public class UserController {
  
  private final UserService userService;
