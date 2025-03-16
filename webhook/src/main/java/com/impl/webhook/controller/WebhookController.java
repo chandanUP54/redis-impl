@@ -9,8 +9,7 @@ import com.impl.webhook.services.WebhookService;
 
 @RestController
 @RequestMapping("/api/webhook")
-@CrossOrigin(origins = {"http://localhost:3000", "https://webhook-app-test.vercel.app"})
-
+//@CrossOrigin(origins = {"http://localhost:3000", "https://webhook-app-test.vercel.app"})
 public class WebhookController {
 
  private final WebhookService webhookService;

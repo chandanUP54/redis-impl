@@ -21,7 +21,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws") // WebSocket connection URL
-                .setAllowedOrigins("http://localhost:3000") // Allow frontend to connect
+                .setAllowedOrigins("http://localhost:3000","https://webhook-app-test.vercel.app") // Allow frontend to connect
                 .withSockJS(); // Enable SockJS for better compatibility
     }
 }
