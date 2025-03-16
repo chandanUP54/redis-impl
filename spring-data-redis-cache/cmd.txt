@@ -26,3 +26,9 @@ wget -qO- http://10.100.231.70:80/users/4
 
 service ip of => spring boot application
 
+---
+
+4) redis-cli -->>
+ CONFIG GET *
+ CONFIG GET maxmemory
+---
