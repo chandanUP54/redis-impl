@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebSocketApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WebhookApplication.class, args);
+		SpringApplication.run(WebSocketApplication.class, args);
 	}
 
 }
