@@ -28,5 +28,13 @@ public class WebhookController {
      return ResponseEntity.ok(processedEvent);
  }
 
+ 
+ @PostMapping("/viewed")
+ public String  viewedNotification() {
+	 
+	 System.out.println("from message viewed: ");
+    
+     return "sent";
+ }
 
 }

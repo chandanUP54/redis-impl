@@ -5,13 +5,19 @@ package com.connect.websocket_application.service;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+
+import java.net.http.WebSocket;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.connect.websocket_application.dto.WebsocketDTO;
 import com.connect.websocket_application.modal.User;
 import com.connect.websocket_application.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -26,7 +32,7 @@ public class UserService {
  private final RestTemplate restTemplate;
  private final ObjectMapper objectMapper;
  private final SimpMessagingTemplate messagingTemplate;
- private final String webhookUrl = "http://localhost:8080/api/webhook/receive";
+ private final String webhookUrl = "http://localhost:9090/api/webhook/receive";
 // private final String webhookUrl = "https://webhook-demo-ykes.onrender.com/api/webhook/receive";
 
  public UserService(UserRepository userRepository, RestTemplate restTemplate, 
@@ -39,15 +45,31 @@ public class UserService {
 
  public User addUser(User user) {
      try {
-         User savedUser = userRepository.save(user);
+    	 
+    	 User newUser=new User();
+    	 
+    	 newUser.setEmail(user.getEmail());
+    	 newUser.setName(user.getName());
+    	 newUser.setJoiningDate(LocalDate.now());
+    	 newUser.setRole(user.getRole());
+    	 
+    	 
+         User savedUser = userRepository.save(newUser);
          logger.info("New user added with ID: {}", savedUser.getId());
          
+         
+         ObjectMapper objectMapper = new ObjectMapper();
+         objectMapper.registerModule(new JavaTimeModule());
+         
          String payload = objectMapper.writeValueAsString(savedUser);
-         sendWebhookNotification("USER_CREATED", payload);
+         
+         WebsocketDTO websocketDTO=new WebsocketDTO();
+         
+         websocketDTO.setMessage("New User Added Named "+savedUser.getName()+" , Role "+savedUser.getRole());
+         websocketDTO.setResponse(payload);
          
          // Send WebSocket notification to admins
-         messagingTemplate.convertAndSend("/topic/admin-notifications", 
-             "New user created: " + savedUser.getName());
+         messagingTemplate.convertAndSend("/topic/notifications",websocketDTO);
          
          return savedUser;
      } catch (Exception e) {
@@ -71,4 +93,9 @@ public class UserService {
          logger.error("Failed to send webhook notification: {}", e.getMessage());
      }
  }
+
+public List<User> findAllUser() {
+	// TODO Auto-generated method stub
+	return userRepository.findAll();
+}
 }

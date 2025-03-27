@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 @Controller
-//@CrossOrigin(origins = {"http://localhost:3000", "https://webhook-app-test.vercel.app"})
 public class NotificationController {
-    @MessageMapping("/notify")
-    @SendTo("/topic/notifications")
+	
+    @MessageMapping("/notify")  //sender -> /app/notify  
+    @SendTo("/topic/notifications")   // receiver -> /topic/notifications
     public String sendNotification(String message) {
     	System.out.println("webhook connect");
         return message; // This message is sent to subscribers

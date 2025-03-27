@@ -2,6 +2,8 @@ package com.connect.websocket_application.controller;
 
 
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +21,15 @@ public class UserController {
      this.userService = userService;
  }
 
- @PostMapping
+ @PostMapping("/register")
  public ResponseEntity<User> createUser(@RequestBody User user) {
      User createdUser = userService.addUser(user);
      return ResponseEntity.ok(createdUser);
  }
+ 
+ @GetMapping("/all")
+ public List<User> allUser(){
+	 return userService.findAllUser();
+ }
+ 
 }

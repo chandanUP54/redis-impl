@@ -1,0 +1,15 @@
+resilience4j:
+  circuitbreaker:
+    instances:
+      externalService:
+        slidingWindowSize: 10                # Number of calls to evaluate state
+        failureRateThreshold: 50             # Failure rate percentage to trip the circuit
+        waitDurationInOpenState: 10000       # Time in ms to stay open before retrying
+        permittedNumberOfCallsInHalfOpenState: 3  # Calls allowed in half-open state
+        registerHealthIndicator: true        # Expose health info via Actuator
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,circuitbreakers    # Enable health and circuit breaker monitoring
