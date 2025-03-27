@@ -19,7 +19,7 @@ public class RedisAvailableCondition implements Condition {
         int redisPort = context.getEnvironment().getProperty("spring.redis.port", Integer.class, 6379);
         String redisPassword = context.getEnvironment().getProperty("spring.redis.password", "aduhuxvv");
         
-        System.out.println(redisHost+" "+redisPort+" "+redisPassword);
+//        System.out.println(redisHost+" "+redisPort+" "+redisPassword);
 
         RedisClient redisClient = null;
         StatefulRedisConnection<String, String> connection = null;

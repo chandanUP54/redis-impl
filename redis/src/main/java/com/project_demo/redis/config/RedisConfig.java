@@ -187,7 +187,7 @@ public class RedisConfig {
 				.clientOptions(clientOptions).clientResources(clientResources)
 				.commandTimeout(java.time.Duration.ofMillis(timeout)).poolConfig(poolConfig).build();
 		
-		System.out.println("redis connected");
+//		System.out.println("redis connected");
 
 		return new LettuceConnectionFactory(redisConfig, clientConfig);
 	}
