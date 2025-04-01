@@ -21,6 +21,8 @@ public class UserService {
     @Cacheable(value = "users", key = "#id")
     public User getUserById(int id) {
         System.out.println("Fetching from database...");
+        System.out.println("--fetch from db----");
+        System.out.println("--database will work---");
         return userRepository.findById(id);
     }
 
